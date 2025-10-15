@@ -1,16 +1,14 @@
+import { useEffect, useState } from "react";
+import GenreList from './GenreList.jsx';
 
-function App() {
+const App = () => {
+
+
 
   return (
     <>
-      <head>
-      <title>MusicOrg</title> 
-      </head>
-      <body>
-        <h1>Hello World!</h1>
-      </body>
-   </>
+      <GenreList />
+    </>
   )
 }
-
-export default App
+export default App;
