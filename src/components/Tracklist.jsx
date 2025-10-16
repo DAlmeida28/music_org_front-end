@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 
 const Tracklist = () => {
   const [genres, setGenres] = useState([]);
+  const [sets, setSets] = useState([]);
 
   useEffect(() => {
     const getGenres = async() => {
@@ -9,21 +10,33 @@ const Tracklist = () => {
         const response = await fetch('http://127.0.0.1:3001/genre');
         const json = await response.json();
         setGenres(json);
-      } catch (error) {
-        console.log("error fetchign genres:", error);
+      } catch(error) {
+        console.log("error fetching genres:", error);
       }
     };
 
     getGenres();
-  }, []);
 
-  return (
+    const getSets = async() => {
+      try {
+        const response = await fetch('http://127.0.0.1:3001/sets');
+        const json = await response.json();
+        setSets(json);
+      } catch(error) {
+        console.log("error fetching sets:", error);
+      }
+    };
+
+    getSets();
+  }, []);
+  
+    return (
   <>
     <h1>Submit a track</h1>
     <form>
       <label>Track Name: <input /></label>
       <label>Track URL: <input/></label>
-      <label>track Genre: </label>
+      <label>Track Genre: </label>
         <select id="genre" value={genres}>
         <option value="">Select a genre</option>
         {genres.map((genre) => (
@@ -32,6 +45,16 @@ const Tracklist = () => {
           </option>
         ))}
         </select>
+        <label>Set/Event: </label>
+          <select id="set" value="selectevent">
+          <option value="setevent">Select an Set or Event</option>
+          {sets.map((set) => (
+          <option key={set.id} value={set.name}>
+            {set.name}
+            </option>
+          ))}
+        </select>
+        <button>Submit</button>
       </form>
   </>
   )
