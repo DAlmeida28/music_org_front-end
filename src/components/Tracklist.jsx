@@ -4,6 +4,11 @@ const Tracklist = () => {
   const [genres, setGenres] = useState([]);
   const [sets, setSets] = useState([]);
 
+  const [trackGenre, setTrackGenre] = useState("");
+  const [trackSet, setTrackSet] = useState("");
+  const [trackName, setTrackName] = useState("");
+  const [trackUrl, setTrackUrl] = useState("");
+
   useEffect(() => {
     const getGenres = async() => {
       try{
@@ -36,22 +41,24 @@ const Tracklist = () => {
     <form>
       <label>Track Name: <input /></label>
       <label>Track URL: <input/></label>
+
       <label>Track Genre: </label>
-        <select id="genre" value={genres}>
-        <option value="">Select a genre</option>
-        {genres.map((genre) => (
-        <option key={genre.id} value={genre.name}>
+        <select id="genre" value={trackGenre} onChange={(event) => {setTrackGenre(event.target.value)}}>
+        <option value="genre">Select a genre</option>
+         {genres.map((genre) => (
+          <option key={genre.id} value={genre.name}>
           {genre.name}
-          </option>
+        </option>
         ))}
         </select>
-        <label>Set/Event: </label>
-          <select id="set" value="selectevent">
-          <option value="setevent">Select an Set or Event</option>
-          {sets.map((set) => (
+
+      <label>Set/Event: </label>
+        <select id="set" value={trackSet} onChange={(event) => {setTrackSet(event.target.value)}}>
+        <option value="set">Select an Set or Event</option>
+         {sets.map((set) => (
           <option key={set.id} value={set.name}>
             {set.name}
-            </option>
+          </option>
           ))}
         </select>
         <button>Submit</button>
